@@ -9,17 +9,8 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
-
 // parsing the request bodys
-
-
  var chart = require("./chart");
-
-
-
-
-
-
 app.use("/", async function(req, res) {
     let starttime = req.query.startTime;
     let endtime = req.query.endTime;
@@ -28,14 +19,15 @@ app.use("/", async function(req, res) {
     //  console.log(req.query);
     // console.log(req.params);
     res.setHeader('Content-Type', 'application/json');
-    
-    let d = await chart.cek(starttime,endtime,cont);
+
+    if(starttime&&endtime){} else  return res.json({success:false});
+    let dd =[starttime,endtime,cont];
+    let d = await chart.cek(dd);
    
     return res.json(d);
 
-
-
 });
 
-
 app.listen(port, () => console.info(`App listen on port ${port}`));
+
+//chart.cek(14690751,14695751,'0x14e5c9b5cb59d2af6d121bbf5a322c6fe9f18657');
